@@ -1,4 +1,4 @@
-This sort of template would allow people who need R packages (lots of legacy tools in there!) but use pandas ("r is busted" a colleague told me) to hook into a web visualizer.
+This sort of template would allow people who need R packages (lots of legacy tools in there!) but use pandas to hook into a web visualizer.
 
 For now, only works single-threaded, that is, not in production, unless someone can figure out how to limit the web server to a single thread. I've had surprisingly little luck with apache and wsgi.
 (rpy2 crashes with multithreading)
