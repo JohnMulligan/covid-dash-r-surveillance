@@ -14,8 +14,9 @@ Have split this into 2 dashboards:
 *flask_app_bystate.py (which calculates all the causes in a state, then lets you select by cause on-page)
 
 
-![Dash 1 screenshot](https://github.com/JohnMulligan/covid-dash-r-surveillance/Dash1.png)
-![Dash 2 screenshot](https://github.com/JohnMulligan/covid-dash-r-surveillance/Dash2.png)
+![Dash 1 screenshot](https://raw.githubusercontent.com/JohnMulligan/covid-dash-r-surveillance/master/dash1.png)
+
+![Dash 2 screenshot](https://raw.githubusercontent.com/JohnMulligan/covid-dash-r-surveillance/master/dash2.png)
 
 I have a custom R package working with this example, showing a full confidence interval from the farrington epidemiological outbreak detection algorithm, both because that's important in itself and because it shows the utility of having an R vm template ready to go.
 
