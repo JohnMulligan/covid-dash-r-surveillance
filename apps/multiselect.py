@@ -21,13 +21,17 @@ from app import app
 def get_figure(jurisdictions,causes):
 	global p_df
 	p_df=pd.DataFrame(surveil.multi(jurisdictions,causes))
-	fig = px.bar(p_df, x="week_ending", y="observed", text="alarm")
+	title = "Deaths attributed to %s in %s" %(", ".join(causes), ", ".join(jurisdictions))
+	fig = px.bar(p_df, x="week_ending", y="observed", text="alarm",
+		labels = {"observed":"Deaths","week_ending":"Week Ending Date"},
+		title = title)
+	
 	fig.update_traces(textposition="outside")
 	fig.add_scatter(x=p_df.week_ending,y=p_df.upperbound,name="95% CI upper bound")
 	fig.add_scatter(x=p_df.week_ending,y=p_df.lowerbound,name="95% CI lower bound")
 	return fig
 layout = html.Div([
-    html.H2('Covid-related Dash'),
+    html.H2('Covid-related Dash: Aggregate Recorded and Predicted Deaths by States & Imputed Causes'),
     html.Div(
 	[
 		dcc.Checklist(
@@ -57,12 +61,13 @@ layout = html.Div([
 			html.Li(['The lines give you the upper and lower bounds of the 95% confidence interval on predicted deaths, which is calculated using a Farrington algorithm on the previous 3 years of CDC data.',
 				html.Ul([
 					html.Li(html.A('Official R Surveillance Package',href='https://cran.r-project.org/web/packages/surveillance/',target='blank')),
-					html.Li(html.A('R Surveillance package that this site runs on,modified to show lower bound of confidence interval.',href='https://github.com/JohnMulligan/surveillance-1')),
+					html.Li(html.A('R Surveillance package that this site runs on,modified to show lower bound of confidence interval.',href='https://github.com/JohnMulligan/surveillance-1',target='blank')),
 				]),
+			html.Li(['Bars are flagged with an X when they exceed the confidence interval on the predicted trend. In a normal year, for instance, there is a 2.5% chance that any given week will be above a 95% CI\'s upper bound when the full tally is made (which can take up to a year in normal circumstances according to the NCHS).']),
 			html.Li(['You can explore the same data on a state-by-state basis on ',html.A('this alternative dashboard',href='/bystate')])
 		]),
 	],
-	style={'width':'50%','display':'inline-block'}
+	style={'width':'90%','display':'inline-block'}
     )
     ]),
     dcc.Graph(id='covid-graph-multi'),

@@ -23,16 +23,22 @@ def get_figure(jurisdiction,cause):
 	global p_df
 	p_df=pd.DataFrame(surveil.bystate(jurisdiction))
 	f_df=p_df[p_df['cause_group']==cause]
-	fig = px.bar(f_df, x="week_ending", y="observed", text="alarm")
+	title = "Deaths attributed to %s in %s" %(cause,jurisdiction)
+	fig = px.bar(f_df, x="week_ending", y="observed", text="alarm",
+		labels = {"observed":"Deaths","week_ending":"Week Ending Date"},
+		title = title)
 	fig.update_traces(textposition="outside")
 	fig.add_scatter(x=f_df.week_ending,y=f_df.upperbound,name="95% CI upper bound")
 	fig.add_scatter(x=f_df.week_ending,y=f_df.lowerbound,name="95% CI lower bound")
 	return fig
-def filter_figure(cause):
+def filter_figure(State,cause):
 	print(cause)
 	global p_df
 	f_df=p_df[p_df['cause_group']==cause]
-	fig = px.bar(f_df, x="week_ending", y="observed", text="alarm")
+	title = "Deaths attributed to %s in %s" %(cause,State)
+	fig = px.bar(f_df, x="week_ending", y="observed", text="alarm",
+		labels = {"observed":"Deaths","week_ending":"Week Ending Date"},
+		title = title)
 	fig.update_traces(textposition="outside")
 	fig.add_scatter(x=f_df.week_ending,y=f_df.upperbound,name="95% CI upper bound")
 	fig.add_scatter(x=f_df.week_ending,y=f_df.lowerbound,name="95% CI lower bound")
@@ -40,7 +46,7 @@ def filter_figure(cause):
 #borrowing from https://pbpython.com/plotly-dash-intro.html
 
 layout = html.Div([
-    html.H2('Covid-related Dash'),
+    html.H2('Covid-related Dash: Select Recorded and Predicted Deaths by State & Imputed Cause'),
     html.Div(
 	[
 		dcc.Dropdown(
@@ -59,19 +65,18 @@ layout = html.Div([
 	html.P('This application allows you to explore CDC mortality data from July 2020, by selecting a state and then an attributed cause of death.'),
 		html.Ul([
                         html.Li('State selection is slow. It calculates the trends for every attributed cause of death in the state going back 3 years.'),
-			html.Li('Cause selection is fast. It filters the mortality stats for that state, which have already been calculated.')
-			]),
-		html.Ul([
+			html.Li('Cause selection is fast. It filters the mortality stats for that state, which have already been calculated.'),
 			html.Li(['The blue bars show the reported deaths counts attributed to the cause you select in the state you select. ',html.A('View CDC Data',href='https://data.cdc.gov/NCHS/Weekly-counts-of-death-by-jurisdiction-and-cause-o/u6jv-9ijr/', target='blank')]),
 			html.Li(['The lines give you the upper and lower bounds of the 95% confidence interval on predicted deaths, which is calculated using a Farrington algorithm on the previous 3 years of CDC data.',
 				html.Ul([
 					html.Li(html.A('Official R Surveillance Package',href='https://cran.r-project.org/web/packages/surveillance/',target='blank')),
-					html.Li(html.A('R Surveillance package that this site runs on,modified to show lower bound of confidence interval.',href='https://github.com/JohnMulligan/surveillance-1')),
+					html.Li(html.A('R Surveillance package that this site runs on,modified to show lower bound of confidence interval.',href='https://github.com/JohnMulligan/surveillance-1',target='blank')),
 				]),
+			html.Li(['Bars are flagged with an X when they exceed the confidence interval on the predicted trend. In a normal year, for instance, there is a 2.5% chance that any given week will be above a 95% CI\'s upper bound when the full tally is made (which can take up to a year in normal circumstances according to the NCHS).']),
 			html.Li(['You can explore the same data by arbitrarily combining states and caues on ',html.A('this alternative dashboard',href='/multiselect')])
 		]),
 	],
-	style={'width':'50%','display':'inline-block'}
+	style={'width':'80%','display':'inline-block'}
     )]),
 
 
@@ -82,7 +87,7 @@ def update_graph(State,cause):
 	ctx=dash.callback_context
 	if ctx.triggered[0]['prop_id'].split('.')[0]=='cause':
 		#cheap
-		figure = filter_figure(cause)
+		figure = filter_figure(State,cause)
 	else:
 		#costly
 		figure = get_figure(State,cause)
