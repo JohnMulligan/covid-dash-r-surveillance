@@ -47,7 +47,8 @@ numeric_data<-data.matrix(counts_aggregated)[order(counts_aggregated[,'Year'],co
 #strip out now-extraneous columns
 numeric_data<-numeric_data[,'Number of Deaths']
 
-sts <- new("sts",epoch=1:288,start=start,freq=52,observed=numeric_data)
+#sts <- new("sts",epoch=1:288,start=start,freq=52,observed=numeric_data)
+sts <- new("sts",epoch=1:length(numeric_data),start=start,freq=52,observed=numeric_data)
 
 end_idx<-as.numeric(dim(sts)[1])
 start_idx=end_idx-steps_back

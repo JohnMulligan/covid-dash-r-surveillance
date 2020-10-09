@@ -20,7 +20,7 @@ def display_page(pathname):
     elif pathname == '/bystate':
         return bystate.layout
     else:
-        return '/bystate'
+        return bystate.layout
 
 if __name__ == '__main__':
     app.run_server(debug=True,host='0.0.0.0',threaded=False)

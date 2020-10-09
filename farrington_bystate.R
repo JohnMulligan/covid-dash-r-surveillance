@@ -28,8 +28,9 @@ wide_state <- filter(wide_state,Type=='Unweighted')
 #print(wide_state)
 wide_state[is.na(wide_state)] <-0
 #print(wide_state)
-important_columns=c('Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive dieases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system','Residual (all other natural causes)')
-
+#important_columns=c('Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive dieases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system','Residual (all other natural causes)')
+#causes have been updated again
+important_columns=c('Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive diseases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system')
 
 all_columns <- append(c('Year','Week'),important_columns)
 #print(wide_state)

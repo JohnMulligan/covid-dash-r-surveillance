@@ -11,7 +11,9 @@ import surveil
 #d.close()
 states=['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','YC','NC','ND','OH','OK','OR','PA','PR','RI','SC','SD','TN','TX','US','UT','VT','VA','WA','WV','WI','WY']
 #select_causes=['Coronavirus Disease 2019','Influenza and pneumonia','Chronic lower respiratory diseases','Adult respiratory distress syndrome','Respiratory failure','Respiratory arrest','Other diseases of the respiratory system','Hypertensive diseases','Ischemic heart disease','Cardiac arrest','Cardiac arrhythmia','Heart failure','Cerebrovascular diseases','Other diseases of the circulatory system','Sepsis','Malignant neoplasms','Diabetes','Obesity','Alzheimer disease','Vascular and unspecified dementia','Renal failure','Intentional and unintentional injury, poisoning and other adverse events','All other conditions and causes (residual)']
-select_causes=['Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive dieases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system','Residual (all other natural causes)']
+#select_causes=['Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive dieases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system','Residual (all other natural causes)']
+##causes have been updated yet again
+select_causes=['Alzheimer disease and dementia','Cerebrovascular diseases','Heart failure','Hypertensive diseases','Ischemic heart disease','Other diseases of the circulatory system','Malignant neoplasms','Diabetes','Renal failure','Sepsis','Chronic lower respiratory disease','Influenza and pneumonia','Other diseases of the respiratory system']
 ##jurisdiction is a state abbreviation string, e.g., 'YC' or 'NY' or 'DC' or 'TX'
 #global placeholder var
 p_df=pd.DataFrame({})
@@ -62,7 +64,7 @@ layout = html.Div([
 	html.H3('App Description'),
 	html.Div(
 	[
-	html.P('This application allows you to explore CDC mortality data from July 2020, by selecting a state and then an attributed cause of death.'),
+	html.P('This application allows you to explore CDC mortality data from October 7 2020. Selecting a state and then an imputed cause of death will return the number of deaths attributed to that cause in that state, with historical trendlines. Outliers in the positive direction are flagged.'),
 		html.Ul([
                         html.Li('State selection is slow. It calculates the trends for every attributed cause of death in the state going back 3 years.'),
 			html.Li('Cause selection is fast. It filters the mortality stats for that state, which have already been calculated.'),
