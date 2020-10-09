@@ -1,5 +1,9 @@
 This sort of template would allow people who need R packages (lots of legacy tools in there!) but use pandas to hook into a web visualizer.
 
+![dash 1](https://github.com/JohnMulligan/covid-dash-r-surveillance/blob/master/dash1.png)
+
+![dash 2](https://github.com/JohnMulligan/covid-dash-r-surveillance/blob/master/dash2.png)
+
 For now, only works single-threaded, that is, not in production, unless someone can figure out how to limit the web server to a single thread. I've had surprisingly little luck with apache and wsgi.
 (rpy2 crashes with multithreading)
 
